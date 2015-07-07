@@ -16,5 +16,10 @@ Route::get('/', function()
 	return View::make('hello');
 });*/
 
-Route::get('/articles', 'ArticlesController@showIndex');
-Route::get('/', 'HomeController@showWelcome');
+Route::get('/', array('uses'=>'ArticlesController@index'));
+Route::get('articles', array('as'=>'articles', 'uses' =>'ArticlesController@all'));
+Route::get('article/new', array('as'=>'new_article', 'uses' => 'ArticlesController@new_article'));
+Route::get('article/{id}', array('as'=>'article', 'uses' => 'ArticlesController@ArticleById'));
+Route::post('article/create', array('uses'=>'ArticlesController@create'));
+
+Route::resource('api', 'ArticleController');

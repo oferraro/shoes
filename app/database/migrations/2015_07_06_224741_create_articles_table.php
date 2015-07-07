@@ -20,6 +20,8 @@ class CreateArticlesTable extends Migration {
             $table->integer('total_in_shelf');
             $table->integer('total_in_vault');
             $table->integer('store_id');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 

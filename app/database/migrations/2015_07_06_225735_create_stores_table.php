@@ -16,6 +16,8 @@ class CreateStoresTable extends Migration {
             $table->increments('id');
             $table->string('name');
             $table->string('address');
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 
