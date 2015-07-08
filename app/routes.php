@@ -16,10 +16,27 @@ Route::get('/', function()
 	return View::make('hello');
 });*/
 
-Route::get('/', array('uses'=>'ArticlesController@index'));
-Route::get('articles', array('as'=>'articles', 'uses' =>'ArticlesController@all'));
-Route::get('article/new', array('as'=>'new_article', 'uses' => 'ArticlesController@new_article'));
-Route::get('article/{id}', array('as'=>'article', 'uses' => 'ArticlesController@ArticleById'));
-Route::post('article/create', array('uses'=>'ArticlesController@create'));
+Route::group(['before' => 'auth.basic'], function () {
+    Route::get('/', array('uses'=>'ArticlesController@index'));
+    Route::get('article/new_store', array('as'=>'new_article', 'uses' => 'ArticlesController@new_store'));
+    Route::post('article/new_store', array('as'=>'new_article', 'uses' => 'ArticlesController@new_store_add'));
+    Route::get('articles', array('as'=>'articles', 'uses' =>'ArticlesController@all'));
+    Route::get('article/new', array('as'=>'new_article', 'uses' => 'ArticlesController@new_article'));
+    Route::post('article/create', array('uses'=>'ArticlesController@create'));
+    Route::get('services/stores', array('uses' => 'ArticleController@stores'));
+    Route::get('services/articles', array('uses' => 'ArticleController@index'));
+    Route::resource('services', 'ArticleController');
+    Route::get('services/articles/store/{id}', array('uses' => 'ArticleController@articles_by_store'));
+});
 
-Route::resource('api', 'ArticleController');
+Route::filter('auth.basic', function()
+{
+    return Auth::basic();
+});
+
+Route::any( '{catchall}', function ( $page ) {
+    $response = array(  'success'    => false,
+                        'error_code' => 404,
+                        'error_msg'  =>'Record not found');
+    return Response::json ($response);    
+} )->where('catchall', '(.*)');

@@ -1,7 +1,14 @@
-<h1>New Article</h1>
-
-{{ Form::open(array('url'=>'article/create', 'method'=>'POST', 'class'=>'form-inlineclass="form-inline')) }}
-
+@if(isset($article))
+    <h1>Edit Article</h1>
+    {{ Form::model($article, array('route' => array('services.update', $article->id), 'method'=>'PATCH', 'class'=>'form-inlineclass="form-inline')) }}
+    <input name="_method" type="hidden" value="PATCH">
+@else
+    <h1>New Article</h1>
+    {{ Form::open(array('url'=>'article/create', 'method'=>'POST', 'class'=>'form-inlineclass="form-inline')) }}
+@endif
+<p>
+    {{ isset($message)?$message:'' }}
+</p>
 <p>
     {{ Form::label('name', 'Name') }}
     {{ Form::text('name') }}

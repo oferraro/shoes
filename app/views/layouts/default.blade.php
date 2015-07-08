@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>{{ $title }}</title>
+    <title>{{ isset($title)?$title:'' }}</title>
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
@@ -34,23 +34,12 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="{{URL::to('/');}}/articles">Articles<span class="sr-only">(current)</span></a></li>
         <li><a href="{{URL::to('/');}}/article/new">New Article</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+        <li><a href="{{URL::to('/');}}/article/new_store">New Store</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-    <div class="container">{{ $content }}</div>
+    <div class="container">{{ isset($content)?$content:'' }}</div>
     
     <footer class="navbar navbar-default navbar-fixed-bottom">
         <span class="navbar-text">The Shoes website footer</span>
